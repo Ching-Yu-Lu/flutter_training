@@ -141,9 +141,6 @@ class _CounterState extends State<Counter> {
   }
 }
 
-///
-/// hw-02
-///
 class TaiwanTime extends StatefulWidget {
   final DateTime inputDateTime;
   final bool showFuzzy;
