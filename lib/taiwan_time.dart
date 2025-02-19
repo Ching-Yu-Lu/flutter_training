@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firsts/main.dart';
 
 class TaiwanTime extends StatelessWidget {
-  final DateTime time;
-  final bool showFuzzy;
-  final TextStyle style;
-  //final Color setColors;
-  //final int setFontSize;
-  const TaiwanTime(
+  DateTime _time;
+  bool _showFuzzy;
+  TextStyle? _style;
+
+  TaiwanTime(
       {super.key,
-      required this.time,
-      //this.setColors = Colors.black,
-      //this.setFontSize = 20,
-      required this.style,
-      this.showFuzzy = false});
+      required DateTime time,
+      bool showFuzzy = false,
+      TextStyle? style})
+      : _time = time,
+        _showFuzzy = showFuzzy,
+        _style = style;
 
   @override
   Widget build(BuildContext context) {
-    DateTime localDateTime = time;
+    DateTime localDateTime = _time;
     var differenceTime = localDateTime.difference(DateTime.now());
     var strFuzzy = "";
-    if (showFuzzy) {
+    if (_showFuzzy) {
       var inSecondsValue = differenceTime.inSeconds;
       //print(differenceTime);
       //print(inSecondsValue);
@@ -70,7 +69,7 @@ class TaiwanTime extends StatelessWidget {
       children: [
         Text(
           '民國${localDateTime.year - 1911}年${localDateTime.month}月${localDateTime.day}日 ${showHours}點${localDateTime.minute}分 ${strFuzzy.toString()}',
-          style: style,
+          style: _style,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

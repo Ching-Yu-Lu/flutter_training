@@ -69,38 +69,10 @@ class MainApp extends StatelessWidget {
             TaiwanTime2(inputDateTime: dateTimePastOverWeek, showFuzzy: true),*/
 
             //TextStyle setTextStyle = TextStyle(color: Colors.red, fontSize: 20);
-            TaiwanTime(
-                time: dateTimePastMins,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                ),
-                showFuzzy: true),
-
-            TaiwanTime(
-                time: dateTimePastInHours,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                ),
-                showFuzzy: true),
-
-            TaiwanTime(
-                time: dateTimePastOverHours,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                ),
-                showFuzzy: true),
-
-            TaiwanTime(
-                time: dateTimePastOverDays,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                ),
-                showFuzzy: true),
-
+            TaiwanTime(time: dateTimePastMins, showFuzzy: true),
+            TaiwanTime(time: dateTimePastInHours, showFuzzy: true),
+            TaiwanTime(time: dateTimePastOverHours, showFuzzy: true),
+            TaiwanTime(time: dateTimePastOverDays, showFuzzy: true),
             TaiwanTime(
                 time: dateTimeFutureOverWeek,
                 style: TextStyle(
