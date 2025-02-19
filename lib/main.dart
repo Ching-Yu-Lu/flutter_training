@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_firsts/taiwan_time.dart';
 
@@ -45,33 +43,70 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         body: /*Center(
           //child: Text('Hello World!'),
-          //child: Counter(num: 5),
+          //child: Counter(nu m: 5),
           child: TaiwanTime(
               inputDateTime: DateTime(2025, 2, 14, 16, 33), showFuzzy: true),
         ), // */
             Column(
           children: [
-            TaiwanTime(inputDateTime: dateTimePastMins, showFuzzy: true),
-            TaiwanTime(
+            /*TaiwanTime2(inputDateTime: dateTimePastMins, showFuzzy: true),
+            TaiwanTime2(
                 inputDateTime: dateTimePastMins,
                 setColors: Colors.purpleAccent,
                 showFuzzy: false),
-            TaiwanTime(inputDateTime: dateTimeFutureMins, showFuzzy: true),
-            TaiwanTime(
+            TaiwanTime2(inputDateTime: dateTimeFutureMins, showFuzzy: true),
+            TaiwanTime2(
                 inputDateTime: dateTimeFutureMins,
                 setFontSize: 50,
                 showFuzzy: false),
-            TaiwanTime(inputDateTime: dateTimePastInHours, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimeFutureInHours, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimePastOverHours, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimeFutureOverHours, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimePastOverDays, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimeFutureOverDays, showFuzzy: true),
-            TaiwanTime(inputDateTime: dateTimePastOverWeek, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimePastInHours, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimeFutureInHours, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimePastOverHours, showFuzzy: true),
+            TaiwanTime2(
+                inputDateTime: dateTimeFutureOverHours, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimePastOverDays, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimeFutureOverDays, showFuzzy: true),
+            TaiwanTime2(inputDateTime: dateTimePastOverWeek, showFuzzy: true),*/
+
+            //TextStyle setTextStyle = TextStyle(color: Colors.red, fontSize: 20);
             TaiwanTime(
-                inputDateTime: dateTimeFutureOverWeek,
-                setColors: Colors.teal,
+                time: dateTimePastMins,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
                 showFuzzy: true),
+
+            TaiwanTime(
+                time: dateTimePastInHours,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+                showFuzzy: true),
+
+            TaiwanTime(
+                time: dateTimePastOverHours,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+                showFuzzy: true),
+
+            TaiwanTime(
+                time: dateTimePastOverDays,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+                showFuzzy: true),
+
+            TaiwanTime(
+                time: dateTimeFutureOverWeek,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                )),
           ],
         ),
       ),
@@ -81,6 +116,7 @@ class MainApp extends StatelessWidget {
 
 //fst
 // shift + alt + f 程式整理
+// F2改名稱
 
 class Counter extends StatefulWidget {
   final int num;
