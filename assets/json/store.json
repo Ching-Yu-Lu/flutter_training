@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "ImgName": "A.gif",
+        "name": {
+            "en": "品項A",
+            "zh": "Item A"
+        }
+    },
+    {
+        "id": 2,
+        "ImgName": "A.gif",
+        "name": {
+            "en": "品項B",
+            "zh": "Item B"
+        }
+    },
+    {
+        "id": 3,
+        "ImgName": "B.gif",
+        "name": {
+            "en": "品項C",
+            "zh": "Item C"
+        }
+    }
+]
