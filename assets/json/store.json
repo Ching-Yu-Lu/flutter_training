@@ -3,24 +3,21 @@
         "id": 1,
         "ImgName": "A.gif",
         "name": {
-            "en": "品項A",
-            "zh": "Item A"
+            "zh": "4杯袋 Four Cup Plastic Bag"
         }
     },
     {
         "id": 2,
         "ImgName": "A.gif",
         "name": {
-            "en": "品項B",
-            "zh": "Item B"
+            "zh": "高山青茶 Bao Zhong Tea"
         }
     },
     {
         "id": 3,
         "ImgName": "B.gif",
         "name": {
-            "en": "品項C",
-            "zh": "Item C"
+            "zh": "鮮榨柳橙綠 Orang Green Tea"
         }
     }
 ]

@@ -34,3 +34,20 @@ final storeProvider = FutureProvider<List<stroeData>>((ref) async {
     throw Exception('Failed to load data: $e');
   }
 });
+
+class likeOrNotNotifier extends StateNotifier<Set<String>> {
+  likeOrNotNotifier() : super(<String>{});
+
+  void toggle(String btnName) {
+    if (state.contains(btnName)) {
+      state = {...state}..remove(btnName);
+    } else {
+      state = {...state, btnName};
+    }
+  }
+}
+
+final likeOrNotProvider =
+    StateNotifierProvider<likeOrNotNotifier, Set<String>>((ref) {
+  return likeOrNotNotifier();
+});
