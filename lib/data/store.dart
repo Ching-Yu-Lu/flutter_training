@@ -51,3 +51,20 @@ final likeOrNotProvider =
     StateNotifierProvider<likeOrNotNotifier, Set<String>>((ref) {
   return likeOrNotNotifier();
 });
+
+class unlikebtnNotifier extends StateNotifier<Set<String>> {
+  unlikebtnNotifier() : super(<String>{});
+
+  void toggle(String btnName) {
+    if (state.contains(btnName)) {
+      state = {...state}..remove(btnName);
+    } else {
+      state = {...state, btnName};
+    }
+  }
+}
+
+final unlikebtnProvider =
+    StateNotifierProvider<unlikebtnNotifier, Set<String>>((ref) {
+  return unlikebtnNotifier();
+});

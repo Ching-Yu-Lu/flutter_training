@@ -120,10 +120,13 @@ class SetNormalElevatedButtonState
   }
 }
 
+/* */
 class SetTextElevatedButton extends ConsumerStatefulWidget {
+  final String btnName;
   final String setText;
 
-  const SetTextElevatedButton({super.key, required this.setText});
+  const SetTextElevatedButton(
+      {super.key, required this.btnName, required this.setText});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -133,6 +136,8 @@ class SetTextElevatedButton extends ConsumerStatefulWidget {
 class SetTextElevatedButtonState extends ConsumerState<SetTextElevatedButton> {
   @override
   Widget build(BuildContext context) {
+    final isUnLikeClicked =
+        ref.watch(unlikebtnProvider).contains(widget.btnName);
     return Padding(
       padding: EdgeInsets.only(top: 10),
       child: SizedBox(
@@ -142,16 +147,25 @@ class SetTextElevatedButtonState extends ConsumerState<SetTextElevatedButton> {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  setState(() {});
+                  ref.read(unlikebtnProvider.notifier).toggle(widget.btnName);
                 },
-                style: ElevatedButton.styleFrom(
-                  //shape: CircleBorder(), // 圓形按鈕
-                  backgroundColor: Colors.grey[300], // 灰色背景
-                  elevation: 0, // 無陰影
-                  padding: EdgeInsets.only(left: 20, right: 20), // 內邊距
-                ),
+                style: (isUnLikeClicked)
+                    ? ElevatedButton.styleFrom(
+                        //shape: CircleBorder(), // 圓形按鈕
+                        backgroundColor: Colors.black, // 灰色背景
+                        elevation: 0, // 無陰影
+                        padding: EdgeInsets.only(left: 20, right: 20), // 內邊距
+                      )
+                    : ElevatedButton.styleFrom(
+                        //shape: CircleBorder(), // 圓形按鈕
+                        backgroundColor: Colors.grey[300], // 灰色背景
+                        elevation: 0, // 無陰影
+                        padding: EdgeInsets.only(left: 20, right: 20), // 內邊距
+                      ),
                 child: Text(widget.setText,
-                    style: TextStyle(color: Colors.black, fontSize: 17)),
+                    style: (isUnLikeClicked)
+                        ? TextStyle(color: Colors.white, fontSize: 17)
+                        : TextStyle(color: Colors.black, fontSize: 17)),
               ),
             )
           ],

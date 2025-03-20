@@ -214,30 +214,40 @@ class _State extends ConsumerState<UberEatsScore> {
                                   Wrap(
                                     children: [
                                       SetTextElevatedButton(
+                                        btnName:
+                                            ("UnlikeBtn_1_${storeItem.id}"),
                                         setText: "Soggy or leaky",
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       SetTextElevatedButton(
+                                        btnName:
+                                            ("UnlikeBtn_2_${storeItem.id}"),
                                         setText: "Messy presentation",
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       SetTextElevatedButton(
+                                        btnName:
+                                            ("UnlikeBtn_3_${storeItem.id}"),
                                         setText: "Cold or melted",
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       SetTextElevatedButton(
+                                        btnName:
+                                            ("UnlikeBtn_4_${storeItem.id}"),
                                         setText: "Small portion",
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       SetTextElevatedButton(
+                                        btnName:
+                                            ("UnlikeBtn_5_${storeItem.id}"),
                                         setText: "Not so tasty",
                                       ),
                                     ],
