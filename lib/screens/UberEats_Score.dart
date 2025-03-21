@@ -180,16 +180,17 @@ class _State extends ConsumerState<UberEatsScore> {
                                     SizedBox(
                                       width: 15,
                                     ),
-                                    Container(
-                                        constraints:
-                                            BoxConstraints(maxWidth: 190),
-                                        child: Text(
-                                          storeItem.name,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        )),
-                                    Spacer(),
+                                    Expanded(
+                                      child: Container(
+                                          constraints:
+                                              BoxConstraints(maxWidth: 190),
+                                          child: Text(
+                                            storeItem.name,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          )),
+                                    ),
                                     /* 讚 */
                                     SetNormalElevatedButton(
                                       btnName: ("down_${storeItem.id}"),
@@ -210,6 +211,7 @@ class _State extends ConsumerState<UberEatsScore> {
                                     )
                                   ],
                                 ),
+                                /* 倒讚 */
                                 if (isNotLike)
                                   Wrap(
                                     children: [
