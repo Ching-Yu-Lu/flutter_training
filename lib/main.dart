@@ -20,6 +20,9 @@ class MainApp extends StatelessWidget {
   }
 }
 
+///**************************************************************
+///*                           Screen                           *
+///**************************************************************
 class NoteScreen extends ConsumerStatefulWidget {
   const NoteScreen({super.key});
 
@@ -31,9 +34,13 @@ class NoteScreenState extends ConsumerState<NoteScreen> {
   @override
   Widget build(BuildContext context) {
     // 監聽
+    final isShowAll = ref.watch(isShowAllProvider);
     final noteList = ref.watch(noteDataProvider);
+    final unCompletedList =
+        noteList.where((notes) => !notes.isFinished).toList();
     return Scaffold(
-        appBar: AppBar(toolbarHeight: 50, title: BuildSwitch()),
+        appBar: AppBar(
+            toolbarHeight: 50, title: BuildSwitch(switchStatus: isShowAll)),
         body: Padding(
           padding: EdgeInsets.only(left: 20, right: 15, top: 25),
           child: Column(
@@ -41,7 +48,14 @@ class NoteScreenState extends ConsumerState<NoteScreen> {
               NoteAddObject(
                 noteList: noteList,
               ),
-              NoteListView(noteList: noteList),
+              Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: Text(
+                  "待完成: ${unCompletedList.length}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ),
+              NoteListView(noteList: noteList, switchStatus: isShowAll),
             ],
           ),
         ));
@@ -49,18 +63,17 @@ class NoteScreenState extends ConsumerState<NoteScreen> {
 }
 
 ///**************************************************************
-///*                        建立CheckBox                        *
+///*                           AppBar                           *
 ///**************************************************************
-class BuildSwitch extends StatefulWidget {
-  const BuildSwitch({super.key});
+class BuildSwitch extends ConsumerStatefulWidget {
+  final bool switchStatus;
+  const BuildSwitch({super.key, this.switchStatus = true});
 
   @override
-  BuildSwitchState createState() => BuildSwitchState();
+  ConsumerState<ConsumerStatefulWidget> createState() => BuildSwitchState();
 }
 
-class BuildSwitchState extends State<BuildSwitch> {
-  bool setSwitchStatus = true;
-
+class BuildSwitchState extends ConsumerState<BuildSwitch> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -78,11 +91,13 @@ class BuildSwitchState extends State<BuildSwitch> {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             Switch(
-                value: setSwitchStatus,
+                value: widget.switchStatus,
                 onChanged: (v) {
                   setState(() {
-                    setSwitchStatus = !setSwitchStatus;
-                    //print("BuildSwitchState Change Stataus is: $setSwitchStatus");
+                    ref
+                        .read(isShowAllProvider.notifier)
+                        .toggle(!widget.switchStatus);
+                    //print("BuildSwitchState Change Stataus is: ${widget.switchStatus}");
                   });
                 })
           ],
@@ -127,14 +142,17 @@ class NoteAddObjectState extends ConsumerState<NoteAddObject> {
                             ? 0
                             : widget.noteList.map<int>((e) => e.id).reduce(max);
                         // 建立 note 物件
-                        noteData addnote = noteData(
-                            id: (maxid + 1), note: textFieldStr, status: "");
-                        ref.read(noteDataProvider.notifier).addnote(addnote);
+                        noteData addnote =
+                            noteData(id: (maxid + 1), note: textFieldStr);
 
-                        print("========> nListCount: $nListCount");
-                        print("========> maxid: $maxid");
+                        if (textFieldStr.isNotEmpty)
+                          ref.read(noteDataProvider.notifier).addnote(addnote);
+
+                        //print("========> nListCount: $nListCount");
+                        //print("========> maxid: $maxid");
                         setState(() {
-                          print("========> Text: $textFieldStr");
+                          //print("========> Text: $textFieldStr");
+                          textFieldStr = "";
                         });
                       },
                       icon: Icon(Icons.add))),
@@ -155,7 +173,9 @@ class NoteAddObjectState extends ConsumerState<NoteAddObject> {
 ///**************************************************************
 class NoteListView extends ConsumerStatefulWidget {
   final List<noteData> noteList;
-  const NoteListView({super.key, required this.noteList});
+  final bool switchStatus;
+  const NoteListView(
+      {super.key, required this.noteList, required this.switchStatus});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => NoteListViewState();
@@ -168,7 +188,11 @@ class NoteListViewState extends ConsumerState<NoteListView> {
       height: 500,
       child: ListView(
         children: [
-          ...widget.noteList.map((e) {
+          ...widget.noteList.where((note) {
+            bool isShow = true;
+            if (!widget.switchStatus) isShow = !note.isFinished;
+            return isShow;
+          }).map((e) {
             /*print(
                 "========> id: ${e.id.toString()}, Note: ${e.note}, Status: ${e.status}");*/
             return ListTile(
@@ -179,17 +203,28 @@ class NoteListViewState extends ConsumerState<NoteListView> {
                       value: e.isFinished,
                       onChanged: ((cbx) {
                         setState(() {
-                          print(e.id.toString());
-                          e.isFinished = !e.isFinished;
+                          //print(e.id.toString());
                           ref
                               .read(noteDataProvider.notifier)
                               .changeStatus(e.id);
                         });
                       })),
                   Expanded(
-                      child: Text(
-                          "id: ${e.id.toString()}, Note: ${e.note}, Status: ${e.status}")),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+                    child: Text(
+                      e.note,
+                      style: TextStyle(
+                          decoration: e.isFinished
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          ref.read(noteDataProvider.notifier).removenote(e);
+                        });
+                      },
+                      icon: Icon(Icons.delete))
                 ],
               ),
               onTap: () {},
