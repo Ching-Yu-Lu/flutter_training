@@ -111,7 +111,7 @@ class BuildSwitchState extends ConsumerState<BuildSwitch> {
 ///*                          新增 Note                          *
 ///**************************************************************
 class NoteAddObject extends ConsumerStatefulWidget {
-  final List<noteData> noteList;
+  final List<NoteData> noteList;
   const NoteAddObject({super.key, required this.noteList});
 
   @override
@@ -142,8 +142,8 @@ class NoteAddObjectState extends ConsumerState<NoteAddObject> {
                             ? 0
                             : widget.noteList.map<int>((e) => e.id).reduce(max);
                         // 建立 note 物件
-                        noteData addnote =
-                            noteData(id: (maxid + 1), note: textFieldStr);
+                        NoteData addnote =
+                            NoteData(id: (maxid + 1), note: textFieldStr);
 
                         if (textFieldStr.isNotEmpty)
                           ref.read(noteDataProvider.notifier).addnote(addnote);
@@ -172,7 +172,7 @@ class NoteAddObjectState extends ConsumerState<NoteAddObject> {
 ///*                      新增 Note ListView                     *
 ///**************************************************************
 class NoteListView extends ConsumerStatefulWidget {
-  final List<noteData> noteList;
+  final List<NoteData> noteList;
   final bool switchStatus;
   const NoteListView(
       {super.key, required this.noteList, required this.switchStatus});

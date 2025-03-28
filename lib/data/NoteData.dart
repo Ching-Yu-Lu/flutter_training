@@ -1,23 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: camel_case_types
-class noteData {
+class NoteData {
   final int id;
   final String note;
   bool isFinished;
 
-  noteData({required this.id, required this.note, this.isFinished = false});
+  NoteData({required this.id, required this.note, this.isFinished = false});
 
-  List<noteData> noteDatas = [];
-  noteDataAdd(List<noteData> item) {
+  List<NoteData> noteDatas = [];
+  noteDataAdd(List<NoteData> item) {
     noteDatas = item;
   }
 }
 
-class NoteDataNotifier extends StateNotifier<List<noteData>> {
+class NoteDataNotifier extends StateNotifier<List<NoteData>> {
   NoteDataNotifier() : super([]);
 
-  void addnote(noteData setItem) {
+  void addnote(NoteData setItem) {
     state = [...state, setItem];
     //print("===============> addnote");
   }
@@ -34,14 +34,14 @@ class NoteDataNotifier extends StateNotifier<List<noteData>> {
     state = newList;
   }
 
-  void removenote(noteData setItem) {
+  void removenote(NoteData setItem) {
     var newList = state.where((x) => x.id != setItem.id);
     state = newList.toList();
   }
 }
 
 final noteDataProvider =
-    StateNotifierProvider<NoteDataNotifier, List<noteData>>((ref) {
+    StateNotifierProvider<NoteDataNotifier, List<NoteData>>((ref) {
   return NoteDataNotifier();
 });
 
