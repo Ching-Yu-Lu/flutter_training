@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_firsts/data/NoteData.dart';
+import 'package:flutter_firsts/data/noteData.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -196,35 +196,48 @@ class NoteListViewState extends ConsumerState<NoteListView> {
             /*print(
                 "========> id: ${e.id.toString()}, Note: ${e.note}, Status: ${e.status}");*/
             return ListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              title: Column(
                 children: [
-                  Checkbox(
-                      value: e.isFinished,
-                      onChanged: ((cbx) {
-                        setState(() {
-                          //print(e.id.toString());
-                          ref
-                              .read(noteDataProvider.notifier)
-                              .changeStatus(e.id);
-                        });
-                      })),
-                  Expanded(
-                    child: Text(
-                      e.note,
-                      style: TextStyle(
-                          decoration: e.isFinished
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                          value: e.isFinished,
+                          onChanged: ((cbx) {
+                            setState(() {
+                              //print(e.id.toString());
+                              ref
+                                  .read(noteDataProvider.notifier)
+                                  .changeStatus(e.id);
+                            });
+                          })),
+                      Expanded(
+                        child: Text(
+                          e.note,
+                          style: TextStyle(
+                              decoration: e.isFinished
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              ref.read(noteDataProvider.notifier).removenote(e);
+                            });
+                          },
+                          icon: Icon(Icons.delete))
+                    ],
                   ),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          ref.read(noteDataProvider.notifier).removenote(e);
-                        });
-                      },
-                      icon: Icon(Icons.delete))
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        e.getRepublicOfChinaYearDateTimeByCreateTime(),
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  )
                 ],
               ),
               onTap: () {},
